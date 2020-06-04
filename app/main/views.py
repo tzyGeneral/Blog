@@ -146,24 +146,32 @@ def info_views():
     #下一篇:查询topic_id比当前topic_id值大的第一条数据
     nextTopic=Topic.query.filter(Topic.id>topic_id).first()
     # print("下一篇:"+nextTopic.title)
+
+    # 查询所有的Category的信息
+    categories = Category.query.all()
     #查询登录用户
     if 'uid' in session and 'uname' in session:
-      user = User.query.filter_by(id=session['uid'])
+      user = User.query.filter_by(id=session['uid']).first()
     return render_template('info.html', params=locals())
 
 
 # 列表页
 @main.route('/list',methods=['GET','POST'])
 def list_view():
-    if request.method == 'GET':
-        # 查询所有的Category的信息
-        categories = Category.query.all()
-        # 查询所有的Topic的信息
-        topics = Topic.query.all()
-        # 获取登录信息
-        if 'uid' in session and 'uname' in session:
-          user = User.query.filter_by(id=session.get('uid')).first()
-        return render_template('list.html', params=locals())
+  if request.method == 'GET':
+    cateid = request.args.get('cateid', '')
+    if cateid:
+      # 指定了类型就返回对应类型的文章
+      topics = Topic.query.filter_by(category_id=cateid).all()
+    else:
+      # 没有指定类型就 查询所有的Topic的信息
+      topics = Topic.query.all()
+    # 查询所有的Category的信息
+    categories = Category.query.all()
+    # 获取登录信息
+    if 'uid' in session and 'uname' in session:
+      user = User.query.filter_by(id=session.get('uid')).first()
+    return render_template('list.html', params=locals())
 
 
 # 时间轴
