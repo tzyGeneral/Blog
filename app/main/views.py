@@ -168,7 +168,7 @@ def list_view():
 
 # 时间轴
 @main.route('/time',methods=['GET','POST'])
-def list_view():
+def time_view():
     if request.method == 'GET':
         # 查询所有的Category的信息
         categories = Category.query.all()
