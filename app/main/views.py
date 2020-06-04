@@ -203,12 +203,15 @@ def gbook_view():
 
     return render_template('gbook.html', params=locals())
   else:
-    message = Message()
-    message.content = request.form.get('content')
-    message.user_id = session.get('uid')
-    message.createtime = datetime.datetime.now().strftime("%Y-%m-%d")
-    db.session.add(message)
-    return redirect('/gbook')
+    if 'uid' in session and 'uname' in session:
+      message = Message()
+      message.content = request.form.get('content')
+      message.user_id = session.get('uid')
+      message.createtime = datetime.datetime.now().strftime("%Y-%m-%d")
+      db.session.add(message)
+      return redirect('/gbook')
+    else:
+      return redirect('/login')
 
 
 # 相册
