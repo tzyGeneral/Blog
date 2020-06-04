@@ -180,9 +180,34 @@ def time_view():
     if request.method == 'GET':
         # 查询所有的Category的信息
         categories = Category.query.all()
-        # 查询所有的Topic的信息
-        topics = Topic.query.all()
+        # 查询所有的Topic的信息(按照时间进行排序)
+        topics = Topic.query.order_by(Topic.pub_date.desc()).all()
         # 获取登录信息
         if 'uid' in session and 'uname' in session:
           user = User.query.filter_by(id=session.get('uid')).first()
         return render_template('time.html', params=locals())
+
+
+# 留言
+@main.route('/gbook', methods=['GET', 'POST'])
+def gbook_view():
+  if request.method == 'GET':
+    # 查询所有的Category的信息
+    categories = Category.query.all()
+    # 查询所有的Topic的信息
+    topics = Topic.query.all()
+    # 获取登录信息
+    if 'uid' in session and 'uname' in session:
+      user = User.query.filter_by(id=session.get('uid')).first()
+
+      messages = Message.query.all()
+      count = len(messages)
+
+    return render_template('gbook.html', params=locals())
+  else:
+    message = Message()
+    message.content = request.form.get('content')
+    message.user_id = session.get('uid')
+    message.createtime = datetime.datetime.now().strftime("%Y-%m-%d")
+    db.session.add(message)
+    return redirect('/gbook')
