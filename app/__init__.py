@@ -13,7 +13,7 @@ db = SQLAlchemy()
 def create_app():
   app = Flask(__name__)
   #配置启动模式为调试模式
-  app.config['DEBUG'] = True
+  app.config['DEBUG'] = False
   #配置数据库的连库字符串
   app.config['SQLALCHEMY_DATABASE_URI']="mysql://blog:h7wckk3X3aZyCabM@120.26.174.237:3306/blog"
   #配置数据库内容在更新时自动提交
