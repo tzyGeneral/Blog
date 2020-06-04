@@ -20,8 +20,8 @@
     <!--menu begin-->
     <div class="menu">
       <nav class="nav" id="topnav">
-        <h1 class="logo"><a href="index.html">个人博客</a></h1>
-        <li><a href="index.html">网站首页</a> </li>
+        <h1 class="logo"><a href="/">个人博客</a></h1>
+        <li><a href="/">网站首页</a> </li>
         <li><a href="/list">文章列表</a>
           <ul class="sub-nav">
             <!-- <li><a href="list.html">Python</a></li>
@@ -40,7 +40,7 @@
         </li>
         <li><a href="photo.html">我的相册</a>
         </li>
-        <li><a href="time.html">时间轴</a> </li>
+        <li><a href="/time">时间轴</a> </li>
         <li><a href="gbook.html">留言</a> </li>
         <li><a href="about.html">关于我</a> </li>
         <li><a href="/release">发表博客</a></li>
@@ -56,21 +56,23 @@
     <!--menu end-->
     <!--mnav begin-->
     <div id="mnav">
-      <h2><a href="index.html" class="mlogo">个人博客</a><span class="navicon"></span></h2>
+      <h2><a href="/" class="mlogo">个人博客</a><span class="navicon"></span></h2>
       <dl class="list_dl">
-        <dt class="list_dt"> <a href="index.html">网站首页</a> </dt>
-        <dt class="list_dt"> <a href="#">文章列表</a> </dt>
+        <dt class="list_dt"> <a href="/">网站首页</a> </dt>
+        <dt class="list_dt"> <a href="/list">文章列表</a> </dt>
         <dd class="list_dd">
           <ul>
-            <li><a href="list.html">Python</a></li>
-            <li><a href="list.html">python Web</a></li>
-            <li><a href="list.html">爬虫</a></li>
-            <li><a href="list.html">人工智能</a></li>
-            <li><a href="list.html">JS实例索引</a></li>
+            {% for category in params.categories %}
+              <li>
+                <a href="/list?cateid={{category.id}}">
+                  {{category.cate_name}}
+                </a>
+              </li>
+            {% endfor %}
           </ul>
         </dd>
         <dt class="list_dt"> <a href="photo.html">我的相册</a> </dt>
-        <dt class="list_dt"> <a href="time.html">时间轴</a> </dt>
+        <dt class="list_dt"> <a href="/time">时间轴</a> </dt>
         <dt class="list_dt"> <a href="gbook.html">留言</a> </dt>
         <dt class="list_dt"> <a href="about.html">关于我</a> </dt>
       </dl>
@@ -231,7 +233,7 @@
       <div class="links">
         <h2 class="hometitle">友情链接</h2>
         <ul>
-          <li><a href="#" target="_blank">达内</a></li>
+          <li><a href="https://github.com/tzyGeneral" target="_blank">我的github</a></li>
           <li><a href="#" target="_blank">亿元级IT教育领军企业</a></li>
           <li><a href="#" target="_blank">人工智能改变世界</a></li>
         </ul>
@@ -239,10 +241,10 @@
       <div class="guanzhu" id="follow-us">
         <h2 class="hometitle">关注我们 么哒！</h2>
         <ul>
-          <li class="sina"><a href="#" target="_blank"><span>微信公众号</span>达内</a></li>
-          <li class="tencent"><a href="#" target="_blank"><span>微信咨询</span>XXX</a></li>
-          <li class="qq"><a href="#" target="_blank"><span>QQ号</span>XXXXXX</a></li>
-          <li class="email"><a href="#" target="_blank"><span>邮箱帐号</span>tedu.cn</a></li>
+          <li class="sina"><a href="#" target="_blank"><span>微信公众号</span>py装置</a></li>
+          <li class="tencent"><a href="#" target="_blank"><span>微信咨询</span>lexburnor</a></li>
+          <li class="qq"><a href="#" target="_blank"><span>QQ号</span>851821384</a></li>
+          <li class="email"><a href="#" target="_blank"><span>邮箱帐号</span>zhenyuantg@gmail.com</a></li>
           <li class="wxgzh"><a href="#" target="_blank"><span>咨询电话</span>xxxxxxxxxxx</a></li>
         </ul>
       </div>
