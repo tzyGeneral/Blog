@@ -194,8 +194,6 @@ def gbook_view():
   if request.method == 'GET':
     # 查询所有的Category的信息
     categories = Category.query.all()
-    # 查询所有的Topic的信息
-    topics = Topic.query.all()
     # 获取登录信息
     if 'uid' in session and 'uname' in session:
       user = User.query.filter_by(id=session.get('uid')).first()
@@ -211,3 +209,33 @@ def gbook_view():
     message.createtime = datetime.datetime.now().strftime("%Y-%m-%d")
     db.session.add(message)
     return redirect('/gbook')
+
+
+# 相册
+@main.route('/photo',methods=['GET','POST'])
+def photo_view():
+    if request.method == 'GET':
+        # 查询所有的Category的信息
+        categories = Category.query.all()
+        # 查询所有的Topic的信息(按照时间进行排序)
+        topics = Topic.query.order_by(Topic.pub_date.desc()).all()
+        # 获取登录信息
+        if 'uid' in session and 'uname' in session:
+          user = User.query.filter_by(id=session.get('uid')).first()
+        return render_template('photo.html', params=locals())
+
+
+# 关于我
+@main.route('/about', methods=['GET', 'POST'])
+def about_view():
+  if request.method == 'GET':
+    # 查询所有的Category的信息
+    categories = Category.query.all()
+    # 获取登录信息
+    if 'uid' in session and 'uname' in session:
+      user = User.query.filter_by(id=session.get('uid')).first()
+
+      messages = Message.query.all()
+      count = len(messages)
+
+    return render_template('about.html', params=locals())
