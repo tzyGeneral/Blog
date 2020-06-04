@@ -31,6 +31,8 @@ class User(db.Model):
   is_author=db.Column(db.SmallInteger,default=0)
   # 增加与Topic之间的关联关系和反向引用
   topics = db.relationship('Topic',backref='user',lazy='dynamic')
+  # 新家与Message之间的关联关系和反向引用
+  messages = db.relationship('Message', backref='user', lazy='dynamic')
   # 增加与Reply之间的关联关系和反向引用
   replies = db.relationship('Reply',backref='user',lazy="dynamic")
   # 增加与Topic之间的关联关系和反向引用(多对多)
@@ -40,6 +42,16 @@ class User(db.Model):
     backref=db.backref('voke_users',lazy='dynamic'),
     lazy='dynamic'
   )
+
+
+class Message(db.Model):
+  __tablename__ = "message"
+  id = db.Column(db.Integer,primary_key=True)
+  content = db.Column(
+    db.String(255),nullable=False)
+  createtime = db.Column(
+    db.DateTime,nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 class Topic(db.Model):
